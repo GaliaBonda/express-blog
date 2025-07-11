@@ -2,17 +2,32 @@ import express from "express";
 
 import bodyParser from "body-parser";
 import morgan from "morgan";
+import compression from "compression";
+import helmet from "helmet";
 import { connect } from "mongoose";
-import postsRouter from "./routers/posts.js";
-import catsRouter from "./routers/categories.js";
-import usersRouter from "./routers/users.js";
+import postsRouter from "./src/routers/posts";
+import catsRouter from "./src/routers/categories";
+import usersRouter from "./src/routers/users";
 import cors from "cors";
 
 import "dotenv/config";
-import { authJwt } from "./helpers/jwt.js";
-import { errorHandler } from "./helpers/error-handler.js";
+import { authJwt } from "./src/helpers/jwt";
+import { errorHandler } from "./src/helpers/error-handler";
+
+import RateLimit from "express-rate-limit";
 
 const app = express();
+app.use(compression());
+
+app.use(helmet());
+
+// Set up rate limiter: maximum of twenty requests per minute
+const limiter = RateLimit({
+  windowMs: 1 * 60 * 1000, // 1 minute
+  max: 20,
+});
+// Apply rate limiter to all requests
+app.use(limiter);
 
 app.use(cors());
 app.options("*", cors());

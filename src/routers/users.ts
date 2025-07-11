@@ -1,5 +1,5 @@
 import express from "express";
-import { User } from "../models/user.js";
+import { User } from "../models/user";
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 
@@ -20,8 +20,8 @@ router.post('/login', async (req, res) => {
     res.status(400).send('The user not found');
     return;
   }
-   
-   const passwordCompareRes = bcrypt.compareSync(req.body.password, user.passwordHash);
+
+  const passwordCompareRes = bcrypt.compareSync(req.body.password, user.passwordHash);
 if (passwordCompareRes) {
   const token = jwt.sign({
     userId: user.id, 

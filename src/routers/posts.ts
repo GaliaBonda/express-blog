@@ -1,6 +1,6 @@
 import express from "express";
-import { Post } from "../models/post.js";
-import { Category } from "../models/category.js";
+import { Post } from "../models/post";
+import { Category } from "../models/category";
 import mongoose from "mongoose";
 
 const router = express.Router();
