@@ -5,6 +5,8 @@ export const userSchema = new mongoose.Schema({
   email: { type: String, required: true, unique: true },
   passwordHash: { type: String, required: true },
   isAdmin: { type: Boolean, default: false },
+  enabled2fa: { type: Boolean, default: false },
+  secret2fa: {type: String}
 });
 
 userSchema.virtual('id').get(function() {
