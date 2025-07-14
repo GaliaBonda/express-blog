@@ -6,8 +6,11 @@ import compression from "compression";
 import helmet from "helmet";
 import { connect } from "mongoose";
 import postsRouter from "./src/routers/posts";
+import productsRouter from "./src/routers/products";
 import catsRouter from "./src/routers/categories";
+import productCatsRouter from "./src/routers/product-categories";
 import usersRouter from "./src/routers/users";
+import checkoutRouter from "./src/routers/checkout";
 import cors from "cors";
 
 import "dotenv/config";
@@ -42,8 +45,11 @@ app.use(authJwt());
 app.use(errorHandler);
 
 app.use(`${api}/posts`, postsRouter);
+app.use(`${api}/products`, productsRouter);
 app.use(`${api}/categories`, catsRouter);
+app.use(`${api}/product-categories`, productCatsRouter);
 app.use(`${api}/users`, usersRouter);
+app.use(`${api}/create-checkout-session`, checkoutRouter);
 
 connect(process.env.DB_CONNECTION_URL ?? "", { dbName: "rehab_db" })
   .then(() => {
