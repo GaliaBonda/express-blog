@@ -1,7 +1,7 @@
 export const errorHandler = (err, req, res, next) => {
   if (err) {
     if (err.name === "UnauthorizedError") {
-      res.status(401).json({message: 'The user is not authorized'})//comment
+      res.status(401).json({message: 'The user is not authorized'})
       return;
     }
     if (err.name === "ValidationError") {
